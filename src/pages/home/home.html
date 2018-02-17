@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
       Pirate-Bay
     </ion-title>
@@ -7,10 +7,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [showCancelButton]="true" [debounce]="1000" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar [showCancelButton]="true" [debounce]="700" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-      <ion-card *ngFor="let item of items" (tap)="copyLink(item.magnet)">
-        <ion-card-content>
+      <ion-card *ngFor="let item of items">
+        <ion-card-content (tap)="copyLink(item.magnet)" (swipe)="swipeCard(item.index)" >
           <ion-card-title>
             {{ item.title }}
             </ion-card-title>
