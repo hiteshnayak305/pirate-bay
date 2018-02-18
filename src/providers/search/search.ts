@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/retry';
-
+import 'rxjs/add/operator/catch';
 /*
   Generated class for the SearchProvider provider.
 
@@ -18,13 +18,13 @@ export class SearchProvider {
   }
 
   getItems(queryString: string){
-    return new Promise(resolve => {
-      this.http.get(this.url + '/' + queryString).retry(3).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      })
-    });
-  }
+      let response =  this.http.get(this.url + '/' + queryString).retry(3);
 
+      response.subscribe(data=>{
+        //console.log(data);
+      },err=>{
+        //console.log(err);
+      });
+      return response;
+  }
 }

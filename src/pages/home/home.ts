@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { Clipboard } from '@ionic-native/clipboard';
+import { Network } from '@ionic-native/network';
 
 import { SearchProvider } from '../../providers/search/search';
 
@@ -14,12 +15,29 @@ export class HomePage {
   searchQuery: string = '';
   searchContent: string = '';
   items: any;
-  li:any[];
   loader:any;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public clipboard: Clipboard, public searchProvider: SearchProvider) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public clipboard: Clipboard, private network: Network, public searchProvider: SearchProvider) {
 
   }
+
+  onConnectSubscription = this.network.onConnect().subscribe(()=>{
+    console.log("onConnect");
+    let toast = this.toastCtrl.create({
+      message: 'Connection available',
+      duration: 1000
+    });
+    toast.present();
+  });
+
+  onDisconnectSubscription = this.network.onDisconnect().subscribe(()=>{
+    console.log("onDisconnect");
+    let toast = this.toastCtrl.create({
+      message: 'Connection lost...',
+      duration: 1000
+    });
+    toast.present();
+  });
 
   presentLoading() {
     this.loader = this.loadingCtrl.create({
@@ -31,17 +49,17 @@ export class HomePage {
   doRefresh(ref: any){
     console.log("doRefresh");
     if (this.searchQuery && this.searchQuery.trim() != '') {
-      this.searchProvider.getItems(this.searchQuery).then(data =>{
-      this.items = data["list"];
-      }).catch(err => {
+      this.searchProvider.getItems(this.searchQuery).subscribe(data => {
+        this.items = data["list"];
+        console.log(this.items);
+      }, err => {
         console.log(err);
         let toast = this.toastCtrl.create({
           message: 'Error occured while fetching...',
-          duration: 3000
+          duration: 2000
         });
         toast.present();
       });
-      console.log(this.items);
     }
     ref.complete();
   }
@@ -56,19 +74,18 @@ export class HomePage {
 
       this.presentLoading();
 
-      this.searchProvider.getItems(this.searchQuery).then(data =>{
+      this.searchProvider.getItems(this.searchQuery).subscribe(data => {
         this.items = data["list"];
-      }).catch(err => {
+        console.log(this.items);
+      }, err => {
         console.log(err);
-        this.loader.dismiss();
         let toast = this.toastCtrl.create({
           message: 'Error occured while fetching...',
-          duration: 3000
+          duration: 2000
         });
         toast.present();
       });
 
-      console.log(this.items);
       this.loader.dismiss();
     }
   }
@@ -77,7 +94,7 @@ export class HomePage {
     //console.log(magnet);
     let toast = this.toastCtrl.create({
       message: 'Magnet link copied successfuly',
-      duration: 3000
+      duration: 1000
     });
     this.clipboard.copy(magnet);
     toast.present();
@@ -91,4 +108,5 @@ export class HomePage {
       }
     });
   }
+
 }

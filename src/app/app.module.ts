@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { Clipboard } from '@ionic-native/clipboard';
-
+import { Network } from '@ionic-native/network';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,6 +32,7 @@ import { SearchProvider } from '../providers/search/search';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Clipboard,
+    Network,
     SearchProvider
   ]
 })
