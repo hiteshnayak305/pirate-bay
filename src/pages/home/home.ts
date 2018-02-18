@@ -12,6 +12,7 @@ import { SearchProvider } from '../../providers/search/search';
 export class HomePage {
 
   searchQuery: string = '';
+  searchContent: string = '';
   items: any;
   li:any[];
   loader:any;
@@ -27,10 +28,28 @@ export class HomePage {
     this.loader.present();
   }
 
+  doRefresh(ref: any){
+    console.log("doRefresh");
+    if (this.searchQuery && this.searchQuery.trim() != '') {
+      this.searchProvider.getItems(this.searchQuery).then(data =>{
+      this.items = data["list"];
+      }).catch(err => {
+        console.log(err);
+        let toast = this.toastCtrl.create({
+          message: 'Error occured while fetching...',
+          duration: 3000
+        });
+        toast.present();
+      });
+      console.log(this.items);
+    }
+    ref.complete();
+  }
+
   getItems(event: any) {
 
     // set val to the value of the searchbar
-    this.searchQuery = event.target.value;
+    this.searchQuery = this.searchContent;
 
     // if the value is an empty string don't filter the items
     if (this.searchQuery && this.searchQuery.trim() != '') {
@@ -39,10 +58,17 @@ export class HomePage {
 
       this.searchProvider.getItems(this.searchQuery).then(data =>{
         this.items = data["list"];
+      }).catch(err => {
+        console.log(err);
+        this.loader.dismiss();
+        let toast = this.toastCtrl.create({
+          message: 'Error occured while fetching...',
+          duration: 3000
+        });
+        toast.present();
       });
 
       console.log(this.items);
-
       this.loader.dismiss();
     }
   }

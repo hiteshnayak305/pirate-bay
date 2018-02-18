@@ -7,17 +7,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [showCancelButton]="true" [debounce]="700" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-searchbar [(ngModel)]="searchContent" [showCancelButton]="true" [debounce]="700" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-      <ion-card *ngFor="let item of items">
-        <ion-card-content (tap)="copyLink(item.magnet)" (swipe)="swipeCard(item.index)" >
-          <ion-card-title>
-            {{ item.title }}
-            </ion-card-title>
-          <p>
-            Uploaded date : {{ item.desc.upload_date }}, Size : {{ item.desc.size }}, Uploaded by : {{ item.desc.uploaded_by }}, Seeds : {{ item.seed }}, Leechs : {{ item.leech }}
-          </p>
-        </ion-card-content>
-      </ion-card>
+    <ion-card *ngFor="let item of items">
+      <ion-card-content (tap)="copyLink(item.magnet)" (swipe)="swipeCard(item.index)" >
+        <ion-card-title>
+          {{ item.title }}
+        </ion-card-title>
+        <p>
+          Uploaded date : {{ item.desc.upload_date }}, Size : {{ item.desc.size }}, Uploaded by : {{ item.desc.uploaded_by }}, Seeds : {{ item.seed }}, Leechs : {{ item.leech }}
+        </p>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 </ion-content>
