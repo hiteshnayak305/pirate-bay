@@ -6,6 +6,8 @@ import { Network } from '@ionic-native/network';
 
 import { SearchProvider } from '../../providers/search/search';
 
+import { Torrent } from './../../models/torrent';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -13,8 +15,8 @@ import { SearchProvider } from '../../providers/search/search';
 export class HomePage {
 
   searchQuery: string = '';
-  searchContent: string = '';
-  items: any;
+  searchString: string = '';
+  torrents: Torrent[];
   loader:any;
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public clipboard: Clipboard, private network: Network, public searchProvider: SearchProvider) {
@@ -49,9 +51,9 @@ export class HomePage {
   doRefresh(ref: any){
     console.log("doRefresh");
     if (this.searchQuery && this.searchQuery.trim() != '') {
-      this.searchProvider.getItems(this.searchQuery).subscribe(data => {
-        this.items = data["list"];
-        console.log(this.items);
+      this.searchProvider.getTorrents(this.searchQuery).subscribe(data => {
+        this.torrents = data["list"];
+        console.log(this.torrents);
       }, err => {
         console.log(err);
         let toast = this.toastCtrl.create({
@@ -66,17 +68,15 @@ export class HomePage {
 
   getItems(event: any) {
 
-    // set val to the value of the searchbar
-    this.searchQuery = this.searchContent;
-
+    this.searchQuery = this.searchString;
     // if the value is an empty string don't filter the items
     if (this.searchQuery && this.searchQuery.trim() != '') {
 
       this.presentLoading();
 
-      this.searchProvider.getItems(this.searchQuery).subscribe(data => {
-        this.items = data["list"];
-        console.log(this.items);
+      this.searchProvider.getTorrents(this.searchQuery).subscribe(data => {
+        this.torrents = data["list"];
+        console.log(this.torrents);
       }, err => {
         console.log(err);
         let toast = this.toastCtrl.create({
@@ -102,9 +102,9 @@ export class HomePage {
 
   swipeCard(index: string){
     //console.log("card swiped "+index);
-    this.items.forEach((element,i) => {
-      if(element.index == index){
-        this.items.splice(i,1);
+    this.torrents.forEach((element,i) => {
+      if(element.index == parseInt(index)){
+        this.torrents.splice(i,1);
       }
     });
   }

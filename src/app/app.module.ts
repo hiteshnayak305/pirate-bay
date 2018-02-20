@@ -9,7 +9,8 @@ import { Network } from '@ionic-native/network';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { SearchProvider } from '../providers/search/search';
+import { SearchProvider } from '../providers/providers'
+import { ApiProvider } from '../providers/providers';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SearchProvider } from '../providers/search/search';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Clipboard,
     Network,
-    SearchProvider
+    SearchProvider,
+    ApiProvider
   ]
 })
 export class AppModule {}

@@ -10,41 +10,41 @@
   <ion-refresher (ionRefresh)="doRefresh($event)" >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-searchbar [(ngModel)]="searchContent" [showCancelButton]="true" [debounce]="700" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="searchString" [showCancelButton]="true" [debounce]="700" (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-    <ion-card *ngFor="let item of items" (tap)="copyLink(item.magnet)" (swipe)="swipeCard(item.index)">
+    <ion-card *ngFor="let torrent of torrents" (tap)="copyLink(torrent.magnet)" (swipe)="swipeCard(torrent.index)">
 
       <ion-item>
         <!--<ion-avatar item-start>
           <img src="assets/imgs/logo.png">
         </ion-avatar>-->
-        <h2>{{ item.desc.uploaded_by }}</h2>
-        <p>{{ item.desc.upload_date }}</p>
+        <h2>{{ torrent.desc.uploaded_by }}</h2>
+        <p>{{ torrent.desc.upload_date }}</p>
       </ion-item>
 
       <!--<img src="assets/imgs/logo.png">-->
 
       <ion-card-content>
-        <h2>{{ item.title }}</h2>
+        <h2>{{ torrent.title }}</h2>
       </ion-card-content>
 
       <ion-row>
         <ion-col>
           <ion-label color="secondary"  clear small icon-start text-center>
             <ion-icon name='happy'></ion-icon>
-            {{ item.seed }}
+            {{ torrent.seed }}
           </ion-label>
         </ion-col>
         <ion-col>
           <ion-label color="primary" clear small icon-start text-center>
             <ion-icon name='folder'></ion-icon>
-            {{ item.desc.size }}
+            {{ torrent.desc.size }}
           </ion-label>
         </ion-col>
         <ion-col>
           <ion-label color="danger" clear small icon-start text-center>
             <ion-icon name='sad'></ion-icon>
-            {{ item.leech }}
+            {{ torrent.leech }}
           </ion-label>
         </ion-col>
       </ion-row>
