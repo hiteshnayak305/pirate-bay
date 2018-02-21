@@ -11,6 +11,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SearchProvider } from '../providers/providers'
 import { ApiProvider } from '../providers/providers';
+import { RecentProvider } from '../providers/recent/recent';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ApiProvider } from '../providers/providers';
     Clipboard,
     Network,
     SearchProvider,
-    ApiProvider
+    ApiProvider,
+    RecentProvider
   ]
 })
 export class AppModule {}

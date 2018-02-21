@@ -1,7 +1,9 @@
+import { RecentProvider } from './recent/recent';
 import { ApiProvider } from './api/api';
 import { SearchProvider } from './search/search';
 
 export {
     ApiProvider,
-    SearchProvider
+    SearchProvider,
+    RecentProvider
 };

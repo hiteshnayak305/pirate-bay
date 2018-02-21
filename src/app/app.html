@@ -7,15 +7,15 @@
 
   <ion-content>
     <ion-list>
-      <ion-item *ngFor="let page of pages" (click)="$event.stopPropagation();toggle(page)">
+      <ion-item *ngFor="let page of pages" (click)="$event.stopPropagation();toggle(page);loadPage(page)">
         <ion-icon name="{{ page.iconName }}"></ion-icon>
         {{page.title}}
         <ion-list *ngIf="page.collapse == false">
-          <ion-item *ngFor="let subPage of page.subItems" (click)="$event.stopPropagation();toggle(subPage)">
+          <ion-item *ngFor="let subPage of page.subItems" (click)="$event.stopPropagation();toggle(subPage);loadPage(subPage)">
             <ion-icon name="{{ subPage.iconName }}"></ion-icon>
             {{subPage.title}}
             <ion-list *ngIf="subPage.collapse == false">
-              <ion-item *ngFor="let subSubPage of subPage.subItems" (click)="$event.stopPropagation()">
+              <ion-item *ngFor="let subSubPage of subPage.subItems" (click)="$event.stopPropagation();loadPage(subSubPage)">
                 <ion-icon name="{{ subSubPage.iconName }}"></ion-icon>
                 {{subSubPage.title}}
               </ion-item>

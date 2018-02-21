@@ -1,0 +1,59 @@
+<!--
+  Generated template for the RecentPage page.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>recent</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-card *ngFor="let torrent of torrents" (tap)="copyLink(torrent.magnet)" (swipe)="swipeCard(torrent.index)">
+
+      <ion-item>
+        <!--<ion-avatar item-start>
+          <img src="assets/imgs/logo.png">
+        </ion-avatar>-->
+        <h2>{{ torrent.desc.uploaded_by }}</h2>
+        <p>{{ torrent.desc.upload_date }}</p>
+      </ion-item>
+
+      <!--<img src="assets/imgs/logo.png">-->
+
+      <ion-card-content>
+        <h2>{{ torrent.title }}</h2>
+      </ion-card-content>
+
+      <ion-row>
+        <ion-col>
+          <ion-label color="secondary"  clear small icon-start text-center>
+            <ion-icon name='happy'></ion-icon>
+            {{ torrent.seed }}
+          </ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label color="primary" clear small icon-start text-center>
+            <ion-icon name='folder'></ion-icon>
+            {{ torrent.desc.size }}
+          </ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label color="danger" clear small icon-start text-center>
+            <ion-icon name='sad'></ion-icon>
+            {{ torrent.leech }}
+          </ion-label>
+        </ion-col>
+      </ion-row>
+
+    </ion-card>
+
+  </ion-list>
+</ion-content>

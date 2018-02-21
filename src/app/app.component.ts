@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -12,6 +12,7 @@ import { Page } from "../models/page";
 export class MyApp {
   rootPage:any = HomePage;
 
+  @ViewChild(Nav) nav: Nav;
   /**
    * store all menu items
    *
@@ -87,7 +88,7 @@ export class MyApp {
       })
     ]
     }),
-    new Page({ collapse: true, iconName: 'time', title: 'Recents', component: 'recentPage'})
+    new Page({ collapse: true, iconName: 'time', title: 'Recents', component: 'RecentPage'})
   ]
 
   /**
@@ -114,5 +115,10 @@ export class MyApp {
    */
   toggle(page:Page){
     page.collapse = !page.collapse;
+  }
+
+  loadPage(page: Page){
+    console.log(page.title);
+    this.nav.push(page.component);
   }
 }
