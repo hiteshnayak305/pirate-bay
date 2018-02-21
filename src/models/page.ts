@@ -8,6 +8,7 @@ export class Page {
   title: string;
   parent: string = '';
   component: string;
+  uri: string = '';
   subItems: Page[] = [];
 
 

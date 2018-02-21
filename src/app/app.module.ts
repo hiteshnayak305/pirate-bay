@@ -11,7 +11,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SearchProvider } from '../providers/providers'
 import { ApiProvider } from '../providers/providers';
-import { RecentProvider } from '../providers/recent/recent';
+import { RecentProvider } from '../providers/providers';
+import { TopProvider } from '../providers/providers';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { RecentProvider } from '../providers/recent/recent';
     Network,
     SearchProvider,
     ApiProvider,
-    RecentProvider
+    RecentProvider,
+    TopProvider
   ]
 })
 export class AppModule {}

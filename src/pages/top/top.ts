@@ -1,35 +1,34 @@
-import { Network } from '@ionic-native/network';
-import { Clipboard } from '@ionic-native/clipboard';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { Clipboard } from '@ionic-native/clipboard';
+import { Network } from '@ionic-native/network';
 
-import { RecentProvider } from '../../providers/providers';
-
-import { Torrent } from './../../models/torrent';
+import { TopProvider } from '../../providers/providers';
+import { Torrent } from '../../models/torrent';
 import { Page } from '../../models/page';
 /**
- * Generated class for the RecentPage page.
+ * Generated class for the TopPage page.
  */
 
 @IonicPage()
 @Component({
-  selector: 'page-recent',
-  templateUrl: 'recent.html',
+  selector: 'page-top',
+  templateUrl: 'top.html',
 })
-export class RecentPage {
+export class TopPage {
 
   torrents: Torrent[];
   loader:any;
   page: Page;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public clipboard: Clipboard, private network: Network, public recentProvider: RecentProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public clipboard: Clipboard, private network: Network, public topProvider: TopProvider) {
     this.page = navParams.data;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RecentPage');
+    console.log('ionViewDidLoad TopPage');
     this.presentLoading();
-    this.recentProvider.getTorrents().subscribe(data => {
+    this.topProvider.getTorrents(this.page).subscribe(data => {
       this.torrents = data["list"];
       console.log(this.torrents);
     }, err => {
@@ -71,7 +70,7 @@ export class RecentPage {
 
   doRefresh(ref: any){
     console.log("doRefresh");
-      this.recentProvider.getTorrents().subscribe(data => {
+      this.topProvider.getTorrents(this.page).subscribe(data => {
         this.torrents = data["list"];
         console.log(this.torrents);
       }, err => {
