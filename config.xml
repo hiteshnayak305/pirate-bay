@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.individual.piratebay" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.individual.piratebay" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>pirate-bay</name>
     <description>A torrent fetcher app from API.</description>
     <author email="hiteshnayak305@gmail.com" href="https://hiteshnayak305.github.io">Individual</author>
@@ -84,5 +84,4 @@
     <plugin name="cordova-clipboard" spec="^1.1.1" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <engine name="android" spec="7.0.0" />
-    <engine name="ios" spec="4.5.4" />
 </widget>

@@ -25,11 +25,11 @@ export class TopProvider {
     } else {
       this.url = 'top/' + page.parent + '/' + page.uri;
     }
-    console.log(this.url);
+    //console.log(this.url);
 
     let response =  this.apiProvider.get(this.url);
       response.subscribe(data=>{
-        console.log(data);
+        //console.log(data);
       },err=>{
         //console.log(err);
       });

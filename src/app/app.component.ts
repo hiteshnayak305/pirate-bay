@@ -124,6 +124,8 @@ export class MyApp {
     } else {
       this.nav.push(page.component,page);
     }
-    this.menuCtrl.close();
+    setTimeout(()=>{
+      this.menuCtrl.close();
+    },2000);
   }
 }

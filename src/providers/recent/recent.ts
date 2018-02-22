@@ -4,7 +4,7 @@ import 'rxjs/add/operator/catch';
 import { ApiProvider } from '../api/api';
 
 /*
-*  Generated class for the SearchProvider provider.
+*  Generated class for the TopProvider provider.
 */
 @Injectable()
 export class RecentProvider {
@@ -17,7 +17,7 @@ export class RecentProvider {
       let response =  this.apiProvider.get('recent');
 
       response.subscribe(data=>{
-        console.log(data);
+        //console.log(data);
       },err=>{
         //console.log(err);
       });
